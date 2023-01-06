@@ -1,10 +1,10 @@
 "use strict";
 
 // Inicializar la base datos con los datos mínimos para funcionar
-const readline = require("readline");
+import readline from "readline";
 
 // Cargamos los modelos
-import { Ad } from "./models/ad";
+import { Ad } from "./models/ad.js";
 
 async function main() {
   // Pregunta al usuario si está seguro
@@ -15,14 +15,8 @@ async function main() {
     process.exit();
   }
 
-  // Conectar a la base de datos
-  const connection = require("./lib/connectMongoose");
-
   // Inicializar la colección de anuncios
   await initAds();
-
-  // Desconectamos de la base de datos
-  connection.close();
 }
 
 main().catch((err) => console.log("Ha habido un error", err));
