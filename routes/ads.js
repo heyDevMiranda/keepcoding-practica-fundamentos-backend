@@ -57,6 +57,21 @@ adsRouter.post("/", async function (req, res, next) {
   }
 });
 
+/* GET  tags existentes */
+adsRouter.get("/tags", async function (req, res, next) {
+  try {
+    const result = (await Ad.find())
+      .map((ad) => {
+        return ad.tags;
+      })
+      .flat();
+    res.setHeader("Content-type", "application/json");
+    res.end(JSON.stringify([...new Set(result)]));
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 /* Filtrado por precio */
 function filterCost(queryParam) {
   const priceRanges = queryParam.split("-");
