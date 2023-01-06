@@ -3,13 +3,13 @@
 // Inicializar la base datos con los datos mínimos para funcionar
 import readline from "readline";
 
-// Cargamos los modelos
+// Cargar los modelos
 import { Ad } from "./models/ad.js";
 
 async function main() {
-  // Pregunta al usuario si está seguro
+  // Preguntar al usuario si está seguro
   const continuar = await preguntaSiNo(
-    "¿Estas seguro, seguro, seguro, que quieres borrar la base de datos?"
+    "¿Estás segura, segura... segura de que quieres borrar la base de datos? "
   );
   if (!continuar) {
     process.exit();
@@ -19,22 +19,52 @@ async function main() {
   await initAds();
 }
 
-main().catch((err) => console.log("Ha habido un error", err));
+main().catch((err) => console.log("¡Vaya, ha habido un error!", err));
 
 async function initAds() {
-  // Borra todos los documentos de la colección de anuncios
+  // Borrar todos los documentos de la colección de anuncios
   const result = await Ad.deleteMany();
-  console.log(`Eliminados ${result.deletedCount} anuncios.`);
+  console.log(`Se han eliminado ${result.deletedCount} anuncios.`);
 
-  // Crea los anuncios iniciales
+  // Crear los anuncios iniciales
   const inserted = await Ad.insertMany([
-    { name: "Prueba1", sale: true, price: 1, pic: "", tags: [""] },
-    { name: "Prueba2", sale: false, price: 1, pic: "", tags: [""] },
-    { name: "Prueba3", sale: true, price: 1, pic: "", tags: [""] },
-    { name: "Prueba4", sale: false, price: 1, pic: "", tags: [""] },
-    { name: "Prueba5", sale: true, price: 1, pic: "", tags: [""] },
+    {
+      name: "La materia oscura",
+      sale: true,
+      price: 175,
+      pic: "",
+      tags: ["trilogy", "adventure", "fantasy"],
+    },
+    {
+      name: "La historia interminable",
+      sale: false,
+      price: 80,
+      pic: "",
+      tags: ["fantasy", "adventure"],
+    },
+    {
+      name: "El infinito en un junco",
+      sale: true,
+      price: 40,
+      pic: "",
+      tags: ["essay", "history"],
+    },
+    {
+      name: "Una habitación propia",
+      sale: false,
+      price: 35,
+      pic: "",
+      tags: ["essay", "feminism"],
+    },
+    {
+      name: "La maldición de Hill House",
+      sale: true,
+      price: 68,
+      pic: "",
+      tags: ["horror", "suspense", "drama"],
+    },
   ]);
-  console.log(`Creados ${inserted.length} anuncios.`);
+  console.log(`Se han creado ${inserted.length} anuncios.`);
 }
 
 function preguntaSiNo(texto) {

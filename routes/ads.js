@@ -3,7 +3,7 @@ import { Ad } from "../models/ad.js";
 
 export const adsRouter = express.Router();
 
-/* GET home page */
+/* GET global */
 adsRouter.get("/", async function (req, res, next) {
   try {
     // Coge todos los ads
@@ -16,3 +16,45 @@ adsRouter.get("/", async function (req, res, next) {
     console.log(error);
   }
 });
+
+/* GET de la página de búsquedas */
+adsRouter.get("/search", async function (req, res, next) {
+  try {
+    const filter = {};
+    if (req.query.name)
+      filter.name = { $regex: `${req.query.name}`, $options: "i" };
+    if (req.query.sale) filter.sale = req.query.sale;
+    if (req.query.price) filter.price = filterCost(req.query.price);
+    if (req.query.tags) filter.tags = { $all: req.query.tags };
+
+    const limit = parseInt(req.query.limit || 15);
+    const skip = parseInt(req.query.skip || 0);
+
+    const sort = req.query.sort;
+    const select = req.query.select;
+
+    console.log(filter);
+    const adsList = await Ad.list(filter, limit, skip, sort, select);
+
+    // Si la lista es undefined, saca un array vacío
+    res.json(adsList || []);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+/* Filtrado por precio */
+function filterCost(queryParam) {
+  const priceRanges = queryParam.split("-");
+
+  if (priceRanges.length === 2) {
+    if (priceRanges[0] !== "" && priceRanges[1] !== "")
+      return { $gte: priceRanges[0], $lte: priceRanges[1] };
+    if (priceRanges[0] !== "" && priceRanges[1] === "")
+      return { $gte: priceRanges[0] };
+    if (priceRanges[0] === "" && priceRanges[1] !== "")
+      return { $lte: priceRanges[1] };
+  } else {
+    return priceRanges;
+  }
+}

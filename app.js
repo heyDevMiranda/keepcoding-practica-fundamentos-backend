@@ -2,6 +2,7 @@ import createError from "http-errors";
 import express, { json, urlencoded } from "express";
 import logger from "morgan";
 import { adsRouter } from "./routes/ads.js";
+import { indexRouter } from "./routes/index.js";
 
 const app = express();
 
@@ -10,6 +11,7 @@ app.use(json());
 app.use(urlencoded({ extended: false }));
 
 app.use("/ads", adsRouter);
+app.use("/", indexRouter);
 
 // Catch 404 and forward to error handler
 app.use(function (req, res, next) {

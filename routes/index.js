@@ -1,10 +1,8 @@
-const express = require("express");
-// import { Router } from "express";
-const router = express.Router();
+import express from "express";
 
-/* GET home page */
-router.get("/", function (req, res, next) {
-  res.render("index", { title: "Express" });
+export const indexRouter = express.Router();
+
+indexRouter.get("/", (req, res, next) => {
+  res.setHeader("Content-type", "text/html");
+  res.send('<h2>Endpoint</h2><a href="/ads/search">Anuncios</a></li>');
 });
-
-module.exports = router;
