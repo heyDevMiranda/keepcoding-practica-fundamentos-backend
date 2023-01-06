@@ -3,11 +3,11 @@
 /**
  * Module dependencies.
  */
-const app = require("../app");
-const debug = require("debug")(
-  "keepcoding-practica-fundamentos-backend:server"
-);
-const http = require("http");
+import app from "../app.js";
+// const debug = require("debug")(
+//   "keepcoding-practica-fundamentos-backend:server"
+// );
+import { createServer } from "http";
 
 /**
  * Get port from environment and store in Express.
@@ -18,7 +18,7 @@ app.set("port", port);
 /**
  * Create HTTP server.
  */
-const server = http.createServer(app);
+const server = createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -77,5 +77,5 @@ function onError(error) {
 function onListening() {
   const addr = server.address();
   const bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
-  debug("Listening on " + bind);
+  // debug("Listening on " + bind);
 }
