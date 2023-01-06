@@ -35,9 +35,23 @@ adsRouter.get("/search", async function (req, res, next) {
 
     console.log(filter);
     const adsList = await Ad.list(filter, limit, skip, sort, select);
-
     // Si la lista es undefined, saca un array vacío
     res.json(adsList || []);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+/* POST para añadir un artículo */
+adsRouter.post("/", async function (req, res, next) {
+  try {
+    // Constantes para cada propiedad del body
+    const { name, sale, price, pic, tags } = req.body;
+    // Nuevo objeto con el modelo de Mongoose
+    const newAd = new Ad({ name, sale, price, pic, tags });
+
+    const advert = await newAd.save();
+    res.status(201).json(advert);
   } catch (error) {
     console.log(error);
   }
