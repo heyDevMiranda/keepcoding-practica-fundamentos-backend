@@ -4,5 +4,7 @@ export const indexRouter = express.Router();
 
 indexRouter.get("/", (req, res, next) => {
   res.setHeader("Content-type", "text/html");
-  res.send('<h2>Endpoint</h2><a href="/ads/search">Anuncios</a></li>');
+  res.send(
+    '<p>¡Hola! Para visualizar los anuncios, por favor, visita este <a href="/ads/search">endpoint</a>.</p>'
+  );
 });
