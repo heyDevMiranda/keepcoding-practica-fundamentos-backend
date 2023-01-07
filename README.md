@@ -1,4 +1,4 @@
-<h1 align=center>Práctica de fundamentos de Backend Backend con Node.js</h1>
+<h1 align=center>Práctica de fundamentos de Backend con Node.js</h1>
 
 ### Guía de inicio rápido
 
@@ -40,10 +40,10 @@ Algunos ejemplos:
 
 - Para buscar productos cuyo precio sea inferior a 100 `http://localhost:3000/ads/search?price=-100` (4) o exactamente 35 `http://localhost:3000/ads/search?price=35` (1).
 
-- O combinarlos juntos, por ejemplo para encontrar un producto de fantasía con el artículo "la" en su nombre, que se busque en un rango de precio inferior a 100 `http://localhost:3000/ads/search?tag=fantasy&sale=false&name=la&price=-100&start=0&limit=2&sort=price`.
+- O combinarlos juntos, por ejemplo para encontrar un producto de fantasía con el artículo "la" en su nombre, que se busque en un rango de precio inferior a 100 `http://localhost:3000/ads/search?tags=fantasy&sale=false&name=la&price=-100&start=0&limit=2&sort=price`.
 
 <div align=center>
-<img src="public\images\combined-filters.JPG" width="775px" alt="filtered-search-example">
+<img src="public\images\combined-filters.PNG" width="775px" alt="filtered-search-example">
 </div>
 
 ## Enunciado
