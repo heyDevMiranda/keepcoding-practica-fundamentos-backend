@@ -43,7 +43,7 @@ Algunos ejemplos:
 - O combinarlos juntos, por ejemplo para encontrar un producto de fantasía con el artículo "la" en su nombre, que se busque en un rango de precio inferior a 100 `http://localhost:3000/ads/search?tag=fantasy&sale=false&name=la&price=-100&start=0&limit=2&sort=price`.
 
 <div align=center>
-<img src="public\images\combined-filters.jpg" alt="filtered-search-example">
+<img src="public\images\combined-filters.JPG" width="775px" alt="filtered-search-example">
 </div>
 
 ## Enunciado
