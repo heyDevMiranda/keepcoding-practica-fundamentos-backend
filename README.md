@@ -8,20 +8,26 @@ Para ejecutar la aplicación habrá que tener instalado [Node JS](https://nodejs
 npm install
 ```
 
-`.env` es el archivo que se utiliza para almacenar las variables de entorno, que son las que se utilizan para configurar el comportamiento de la aplicación. Como se suelen utilizar para almacenar información confidencial, como contraseñas de bbdd o claves de API, este fichero se encuentra includo en el `.gitignore` y puedes utilizar el tuyo propio.
+`.env` es el archivo que se utiliza para almacenar las variables de entorno, que son las que se utilizan para configurar el comportamiento de la aplicación. Como se suelen utilizar para almacenar información confidencial, como contraseñas de bbdd o claves de API, este fichero se encuentra includo en el `.gitignore` y puedes utilizar uno propio.
 
-Para arrancar la base de datos con los anuncios iniciales, simplemente utiliza el comando
+Para arrancar la base de datos con los anuncios iniciales, simplemente se ha de usar el comando
 
 ```
 node init-db.js
 ```
 
-Y se responderá a la pregunta de si se desea eliminar la base de datos existente.
+Y se **responderá a la pregunta de si se desea eliminar la base de datos existente**.
 
 Para inicializar el proyecto se debe utilizar el comando
 
 ```
 npm run start:dev
+```
+
+Para acceder a un listado completo de los anuncios **sin paginar** se puede utilizar 
+
+```
+http://localhost:3000/ads
 ```
 
 Finalmente, para recibir una lista de anuncios filtrada, la llamada debe realizarse de la siguiente manera:
@@ -30,21 +36,27 @@ Finalmente, para recibir una lista de anuncios filtrada, la llamada debe realiza
 http://localhost:3000/ads/search?[...]
 ```
 
-Algunos ejemplos:
+Algunos ejemplos de filtros solicitados:
 
-- Para filtrar productos cuyo género sea "fantasy" `http://localhost:3000/ads/search?tags=fantasy` (2), o cuyo género sea "ensayo" `http://localhost:3000/ads/search?tags=essay` (2), o sean una trilogía `http://localhost:3000/ads/search?tags=trilogy` (1).
+- Para filtrar productos cuya etiqueta sea "fantasy" `http://localhost:3000/ads/search?tags=fantasy` (2), o cuyo género sea "ensayo" `http://localhost:3000/ads/search?tags=essay` (2), o sean una trilogía `http://localhost:3000/ads/search?tags=trilogy` (1).
 
-- Para buscar los productos que están en venta `http://localhost:3000/ads/search?sale=true` (3) o se buscan `http://localhost:3000/ads/search?sale=false` (2).
+- Para buscar los productos que están **en venta** `http://localhost:3000/ads/search?sale=true` (3) o **se buscan** `http://localhost:3000/ads/search?sale=false` (2).
 
-- Para filtrar productos que incluyan la palabra "la" en su nombre `http://localhost:3000/ads/search?name=la` (3) o "house" `http://localhost:3000/ads/search?name=house` (1).
+- Para filtrar productos **que incluyan** la palabra "la" en su nombre `http://localhost:3000/ads/search?name=la` (3) o "house" `http://localhost:3000/ads/search?name=house` (1).
 
-- Para buscar productos cuyo precio sea inferior a 100 `http://localhost:3000/ads/search?price=-100` (4) o exactamente 35 `http://localhost:3000/ads/search?price=35` (1).
+- Para buscar productos **cuyo precio sea** inferior a 100 `http://localhost:3000/ads/search?price=-100` (4) o exactamente 35 `http://localhost:3000/ads/search?price=35` (1).
 
 - O combinarlos juntos, por ejemplo para encontrar un producto de fantasía con el artículo "la" en su nombre, que se busque en un rango de precio inferior a 100 `http://localhost:3000/ads/search?tags=fantasy&sale=false&name=la&price=-100&start=0&limit=2&sort=price`.
 
 <div align=center>
 <img src="public\images\combined-filters.PNG" width="775px" alt="filtered-search-example">
 </div>
+
+- Las búsquedas de cualquier tipo en _/ads/search_ **están paginadas** a 15 resultados por página, por lo que para obtener otras páginas que no sean la primera se utiliza, por ejemplo, la llamada `http://localhost:3000/ads/search?skip=3` (para ir a la tercera página). También es posible **cambiar el tamaño de página** utilizando `http://localhost:3000/ads/search?limit=10` para reducir el número de resultados a diez.
+
+- Además, es posible acceder a un **listado de las _tags_ existentes en este momento** en los anuncios de la base de datos: `http://localhost:3000/ads/tags`.
+
+- Y para **añadir un anuncio a la base de datos a través de la API** se puede utilizar `http://localhost:3000/ads` con un método POST en cuyo _body_ vaya un JSON con las propiedades "name" (string), "sale" (boolean), "price" (number), "pic" (string) y "tags" (array de strings).
 
 ## Enunciado
 
